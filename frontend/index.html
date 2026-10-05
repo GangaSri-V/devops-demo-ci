@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Log Analyzer</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-mark">SL</span>
+            <div>
+                <h1>Server Log Analyzer</h1>
+                <p>Security Operations Dashboard</p>
+            </div>
+        </div>
+        <span class="system-status">● Analysis engine</span>
+    </header>
+
+    <main class="dashboard">
+        <section class="intro">
+            <div>
+                <p class="eyebrow">LOG INTELLIGENCE</p>
+                <h2>Understand your server activity.</h2>
+                <p class="muted">
+                    Analyze HTTP access logs and investigate unusual requests.
+                </p>
+            </div>
+            <span class="tag">Rule-based analysis</span>
+        </section>
+
+        <section class="panel input-panel">
+            <div class="section-heading">
+                <div>
+                    <h3>Log input</h3>
+                    <p>Paste Apache or Nginx-style access logs.</p>
+                </div>
+                <button id="sampleBtn" class="secondary">Load sample</button>
+            </div>
+
+            <textarea id="logInput" spellcheck="false"
+                placeholder="Paste access log entries here..."></textarea>
+
+            <div class="input-footer">
+                <span id="lineCount">0 lines</span>
+                <button id="analyzeBtn" class="primary">Analyze logs →</button>
+            </div>
+            <p id="message" class="message" role="status"></p>
+        </section>
+
+        <section id="results" hidden>
+            <div class="section-heading results-heading">
+                <div>
+                    <p class="eyebrow">ANALYSIS REPORT</p>
+                    <h3>Traffic overview</h3>
+                </div>
+                <span id="reportStatus" class="tag">Completed</span>
+            </div>
+
+            <div class="stats">
+                <article class="stat-card">
+                    <p>Total requests</p><h2 id="total">0</h2>
+                </article>
+                <article class="stat-card">
+                    <p>Successful</p><h2 id="successful">0</h2>
+                </article>
+                <article class="stat-card">
+                    <p>Client errors</p><h2 id="clientErrors">0</h2>
+                </article>
+                <article class="stat-card">
+                    <p>Server errors</p><h2 id="serverErrors">0</h2>
+                </article>
+            </div>
+
+            <section class="panel">
+                <div class="section-heading">
+                    <div>
+                        <h3>Security findings</h3>
+                        <p id="findingSummary">Potential issues detected</p>
+                    </div>
+                    <span id="findingCount" class="tag">0 findings</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Severity</th>
+                                <th>Source IP</th>
+                                <th>Request</th>
+                                <th>Status</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody id="findingsBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h3>Analysis details</h3>
+                <div class="details-grid">
+                    <div><span>Unique IP addresses</span>
+                        <strong id="uniqueIps">0</strong></div>
+                    <div><span>Invalid log lines</span>
+                        <strong id="invalidLines">0</strong></div>
+                </div>
+                <h4>HTTP status distribution</h4>
+                <div id="statusDistribution" class="status-list"></div>
+            </section>
+        </section>
+
+        <footer>
+            Server Log Analyzer · Educational project · No database
+        </footer>
+    </main>
+</body>
+</html>
