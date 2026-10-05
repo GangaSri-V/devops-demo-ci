@@ -1,0 +1,14 @@
+FROM httpd:2.4
+
+# Copy the frontend website into Apache's document root
+COPY frontend/ /usr/local/apache2/htdocs/
+
+# Enable Apache proxy modules and forward API requests to Flask
+RUN sed -i \
+    -e 's/^#LoadModule proxy_module/LoadModule proxy_module/' \
+    -e 's/^#LoadModule proxy_http_module/LoadModule proxy_http_module/' \
+    conf/httpd.conf \
+    && printf '\nProxyPass "/api/" "http://backend:5000/api/"\nProxyPassReverse "/api/" "http://backend:5000/api/"\n' \
+    >> conf/httpd.conf
+
+EXPOSE 80
